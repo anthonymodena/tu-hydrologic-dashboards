@@ -4,18 +4,20 @@
 <meta charset="utf-8">
 <title>Conservation Hydrology Dashboard</title>
 <style>
-    body { font-family: Arial, sans-serif; background: #F7F8F5; margin: 0; }
+    body { font-family: Arial, sans-serif; background: #121B33; margin: 0; }
     .tu-header { display:flex; align-items:center; justify-content:space-between;
-                 padding: 14px 24px; border-bottom: 2px solid #121B33; background: #F7F8F5; }
-    .tu-header-title { color: #121B33; font-size: 20px; font-weight: bold; margin: 0; }
+                 padding: 14px 24px; border-bottom: 2px solid rgba(247,248,245,0.30); background: #121B33; }
+    .tu-header-title { color: #F7F8F5; font-size: 20px; font-weight: bold; margin: 0; }
     .tu-header-logo { height: 56px; }
-    .tu-selector { padding: 12px 24px; background: #F7F8F5; border-bottom: 1px solid rgba(18,27,51,0.15);
+    .tu-selector { padding: 12px 24px; background: #121B33; border-bottom: 1px solid rgba(247,248,245,0.30);
                    display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .tu-selector input[type=text] { font-family: Arial, sans-serif; font-size: 13px; color: #121B33;
-                   border: 1px solid #121B33; border-radius: 4px; padding: 7px 10px; width: 260px; }
-    .tu-selector select { font-family: Arial, sans-serif; font-size: 13px; color: #121B33;
-                   border: 1px solid #121B33; border-radius: 4px; padding: 6px; width: 260px; height: 34px; }
-    .tu-selector-count { font-size: 12px; color: #121B33; opacity: 0.75; }
+    .tu-selector input[type=text] { font-family: Arial, sans-serif; font-size: 13px; color: #F7F8F5;
+                   border: 1px solid rgba(247,248,245,0.30); border-radius: 4px; padding: 7px 10px; width: 260px;
+                   background: #121B33; }
+    .tu-selector select { font-family: Arial, sans-serif; font-size: 13px; color: #F7F8F5;
+                   border: 1px solid rgba(247,248,245,0.30); border-radius: 4px; padding: 6px; width: 260px; height: 34px;
+                   background: #121B33; }
+    .tu-selector-count { font-size: 12px; color: #8791B0; opacity: 0.9; }
     .tu-frame { width: 100%; height: 1100px; border: none; display: block; }
   </style>
 </head>
