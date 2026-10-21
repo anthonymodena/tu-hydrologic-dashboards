@@ -35,8 +35,21 @@
   }
 
   function colorOf(id) { return CFG.palette[state.slots[id]]; }
-  function swatch(color) {
-    return h("span", { class: "tu-swatch" + (color ? "" : " is-empty"), style: color ? "background:" + color : null, "aria-hidden": "true" });
+  function dashOf(id) { return (CFG.dashes && CFG.dashes[state.slots[id]]) || "solid"; }
+  // A small line sample in the site's color and line pattern (or a dashed
+  // gray placeholder for a site that isn't ticked).
+  function swatch(id) {
+    if (!id) return h("span", { class: "tu-swatch is-empty", "aria-hidden": "true" });
+    return h("span", { class: "tu-swatch is-" + dashOf(id), style: "--c:" + colorOf(id), "aria-hidden": "true" });
+  }
+  // The same sample as text, for the end-of-line labels inside the chart.
+  var GLYPH = String.fromCharCode(0x2501), DOT = String.fromCharCode(0x2022);
+  function lineGlyph(id) {
+    var d = dashOf(id);
+    if (d === "dot") return DOT + " " + DOT + " " + DOT;
+    if (d === "dash") return GLYPH + " " + GLYPH;
+    if (d === "dashdot") return GLYPH + " " + DOT + " " + GLYPH;
+    return GLYPH + GLYPH;
   }
   function toMs(s) { return Date.parse(String(s).replace(" ", "T") + "Z"); }
   function msStr(ms) { return new Date(ms).toISOString().replace("T", " ").slice(0, 19); }
@@ -161,7 +174,7 @@
       cb.checked = on;
       cb.addEventListener("change", function () { toggleSite(s.id); });
       siteBox.appendChild(h("label", { class: "tu-chip" + (on ? " is-on" : "") + (off ? " is-disabled" : ""), title: s.label },
-        [cb, swatch(on ? colorOf(s.id) : null), h("span", { text: s.id })]));
+        [cb, swatch(on ? s.id : null), h("span", { text: s.id })]));
     });
 
     var selBox = $("tu-cmp-selected");
@@ -170,8 +183,8 @@
       selBox.appendChild(h("button", { type: "button", class: "tu-chip is-on", "data-key": "remove:" + id,
         "aria-label": "Remove " + id + " from the comparison", title: byId[id].label,
         onclick: function () { toggleSite(id); } },
-        [swatch(colorOf(id)), h("span", { text: id }), h("span", { class: "tu-chip-group", text: byId[id].group }),
-         h("span", { class: "tu-chip-x", "aria-hidden": "true", text: "×" })]));
+        [swatch(id), h("span", { text: id }), h("span", { class: "tu-chip-group", text: byId[id].group }),
+         h("span", { class: "tu-chip-x", "aria-hidden": "true", text: String.fromCharCode(0xd7) })]));
     });
     $("tu-cmp-selected-field").hidden = state.selected.length === 0;
     var fullNote = $("tu-cmp-full");
@@ -203,7 +216,7 @@
     var box = $("tu-cmp-legend");
     box.textContent = "";
     state.selected.forEach(function (id) {
-      box.appendChild(h("span", null, [swatch(colorOf(id)), byId[id].label]));
+      box.appendChild(h("span", null, [swatch(id), byId[id].label]));
     });
   }
 
@@ -300,7 +313,7 @@
       items.forEach(function (it, k) {
         anns.push({ xref: "paper", x: 1, xanchor: "left", xshift: 8, yref: ref, y: it.value, yanchor: "middle",
           yshift: -(pos[k] - it.px), showarrow: false, align: "left",
-          text: '<span style="color:' + colorOf(it.id) + '">━━</span> ' + it.id,
+          text: '<span style="color:' + colorOf(it.id) + '">' + lineGlyph(it.id) + '</span> ' + it.id,
           font: { family: FONT, color: T.text, size: 12 } });
       });
     });
@@ -333,7 +346,7 @@
         if (!hasMetric(id, m.col)) return;
         traces.push({ x: DATA[id].dates, y: DATA[id].metrics[m.col], type: "scatter", mode: "lines",
           name: id, xaxis: "x", yaxis: ref, connectgaps: false, showlegend: false,
-          line: { color: colorOf(id), width: 1.8 },
+          line: { color: colorOf(id), width: dashOf(id) === "solid" ? 1.8 : 2.2, dash: dashOf(id) },
           hovertemplate: "<b>" + id + "</b>  " + m.label + ": %{y:.2f}<extra></extra>" });
       });
     });
@@ -381,7 +394,7 @@
       ids.filter(function (id) { return hasMetric(id, m.col); }).forEach(function (id) {
         var st = stats(id, m.col, yr.range[0], yr.range[1]);
         sec.appendChild(h("div", { class: "tu-stat-row" }, [
-          h("span", { class: "tu-stat-site", title: byId[id].label }, [swatch(colorOf(id)), h("span", { text: id })]),
+          h("span", { class: "tu-stat-site", title: byId[id].label }, [swatch(id), h("span", { text: id })]),
           h("span", { class: "tu-strong", text: st ? fmt(st.latest) : "n/a" }),
           h("span", { text: st ? fmt(st.min) : "n/a" }),
           h("span", { text: st ? fmt(st.max) : "n/a" })]));
@@ -456,7 +469,7 @@
       if (!state.started) {
         state.started = true;
         if (!state.selected.length) {
-          CFG.sites.filter(function (s) { return s.group === state.group; }).slice(0, MAX)
+          CFG.sites.filter(function (s) { return s.group === state.group; }).slice(0, Math.min(MAX, CFG.defaultCount || 3))
             .forEach(function (s) { addSite(s.id); });
         }
       }
