@@ -1,0 +1,54 @@
+
+[hidden] { display: none !important; }
+.tu-tabs { display: flex; flex-wrap: wrap; gap: 4px; padding: 12px 24px 0 24px; border-bottom: 1px solid var(--tu-border); }
+.tu-tab { min-height: 44px; padding: 0 18px; margin-bottom: -1px; font: inherit; font-size: 14px; color: var(--tu-label);
+          background: transparent; border: 1px solid transparent; border-radius: 8px 8px 0 0; cursor: pointer; }
+.tu-tab[aria-pressed="true"] { color: var(--tu-text); font-weight: 700; background: var(--tu-panel);
+          border-color: var(--tu-border); border-bottom-color: var(--tu-panel); }
+.tu-tab:focus-visible, .tu-chip:focus-within, .tu-cmp select:focus-visible, button.tu-chip:focus-visible {
+          outline: 2px solid var(--tu-text); outline-offset: 2px; }
+.tu-cmp { color: var(--tu-text); font-family: Arial, sans-serif; }
+.tu-cmp-controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px 32px; padding: 16px 24px;
+          background: var(--tu-panel); border-bottom: 1px solid var(--tu-border); }
+.tu-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.tu-field-row { flex-direction: row; align-items: center; gap: 10px; }
+.tu-field-label, .tu-field legend { padding: 0; font-size: 12px; font-weight: 700; color: var(--tu-label); }
+.tu-field legend { margin-bottom: 6px; }
+.tu-normal { font-weight: 400; }
+.tu-year-label { font-size: 13px; font-weight: 700; color: var(--tu-text); }
+.tu-cmp select { box-sizing: border-box; min-width: 180px; min-height: 44px; padding: 0 10px; font: inherit; font-size: 14px;
+          color: var(--tu-text); background: var(--tu-bg); border: 1px solid var(--tu-border); border-radius: 4px; }
+.tu-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tu-chip { display: inline-flex; align-items: center; gap: 8px; box-sizing: border-box; min-height: 44px; padding: 0 14px;
+          font: inherit; font-size: 14px; color: var(--tu-text); background: transparent;
+          border: 1px solid var(--tu-border); border-radius: 8px; cursor: pointer; }
+.tu-chip.is-on { background: var(--tu-bg); border-color: rgba(247,248,245,0.55); }
+.tu-chip.is-disabled { color: var(--tu-muted); cursor: not-allowed; }
+.tu-chip input { margin: 0; width: 16px; height: 16px; }
+.tu-chip-group { font-size: 12px; color: var(--tu-label); }
+.tu-chip-x { font-size: 16px; line-height: 1; color: var(--tu-label); }
+.tu-swatch { display: inline-block; flex: none; width: 16px; height: 4px; border-radius: 2px; }
+.tu-swatch.is-empty { height: 0; border-top: 2px dashed var(--tu-muted); }
+.tu-cmp-selected-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 24px;
+          border-bottom: 1px solid var(--tu-border); }
+.tu-muted { font-size: 13px; color: var(--tu-label); }
+.tu-cmp-main { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px 32px; padding: 16px 24px 40px 24px; }
+.tu-cmp-chart-col { flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.tu-cmp-title { margin: 0; font-size: 18px; font-weight: 400; }
+.tu-cmp-legend { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px; }
+.tu-cmp-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.tu-cmp-notes { margin: 0; font-size: 13px; color: var(--tu-label); }
+.tu-cmp-notes:empty { display: none; }
+.tu-cmp-message { min-height: 320px; display: flex; align-items: center; justify-content: center; padding: 24px;
+          text-align: center; font-size: 14px; color: var(--tu-label); border: 1px dashed var(--tu-border); border-radius: 8px; }
+#tu-cmp-chart { width: 100%; }
+.tu-cmp-aside { flex: 1 1 280px; min-width: 260px; display: flex; flex-direction: column; gap: 20px; }
+.tu-cmp-aside h2 { margin: 0; font-size: 16px; font-weight: 700; }
+.tu-stat h3 { margin: 0 0 8px 0; font-size: 13px; font-weight: 700; }
+.tu-stat + .tu-stat { margin-top: 20px; }
+.tu-stat-head, .tu-stat-row { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 8px; }
+.tu-stat-head { padding-bottom: 6px; font-size: 12px; color: var(--tu-label); }
+.tu-stat-row { align-items: center; padding: 9px 0; font-size: 13px; border-top: 1px solid rgba(247,248,245,0.15); }
+.tu-stat-head span + span, .tu-stat-row span + span { text-align: right; }
+.tu-stat-site { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+.tu-strong { font-weight: 700; }
